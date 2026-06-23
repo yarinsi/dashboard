@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GTM Deck: Mobile Funnel</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #0a0a0a;
+    color: #1a1a1a;
+    overflow: hidden;
+  }
+
+  .deck {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+  }
+
+  .slide {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+    display: none;
+    padding: 64px 80px;
+    background: #ffffff;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .slide.active { display: flex; }
+
+  /* COVER */
+  .slide-cover {
+    background: #0a0a0a;
+    color: #fff;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .slide-cover .eyebrow {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #6b7280;
+    margin-bottom: 24px;
+  }
+
+  .slide-cover h1 {
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.05;
+    color: #fff;
+    max-width: 700px;
+    margin-bottom: 48px;
+  }
+
+  .slide-cover h1 span { color: #116dff; }
+
+  .slide-cover .meta {
+    display: flex;
+    gap: 40px;
+    font-size: 14px;
+    color: #6b7280;
+  }
+
+  .slide-cover .meta strong { color: #9ca3af; font-weight: 500; }
+
+  /* SLIDE HEADER */
+  .slide-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+    flex-shrink: 0;
+  }
+
+  .slide-num {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #116dff;
+    background: #eff6ff;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  .slide-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0a0a0a;
+  }
+
+  /* CONTENT */
+  .slide-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    overflow: hidden;
+  }
+
+  .slide-body.two-col {
+    flex-direction: row;
+    gap: 48px;
+  }
+
+  .col { flex: 1; display: flex; flex-direction: column; gap: 24px; }
+
+  .block { display: flex; flex-direction: column; gap: 8px; }
+
+  .label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #6b7280;
+  }
+
+  .body-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #374151;
+  }
+
+  .body-text strong { color: #0a0a0a; }
+
+  .hero-stat {
+    font-size: 48px;
+    font-weight: 800;
+    color: #116dff;
+    line-height: 1;
+  }
+
+  .hero-label {
+    font-size: 14px;
+    color: #6b7280;
+    font-weight: 500;
+    margin-top: 4px;
+  }
+
+  /* STAT ROW */
+  .stat-row {
+    display: flex;
+    gap: 32px;
+  }
+
+  .stat-box {
+    flex: 1;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 20px 24px;
+  }
+
+  .stat-box .num {
+    font-size: 36px;
+    font-weight: 800;
+    color: #0a0a0a;
+    line-height: 1;
+  }
+
+  .stat-box .num.blue { color: #116dff; }
+  .stat-box .num.red { color: #ef4444; }
+  .stat-box .num.green { color: #10b981; }
+
+  .stat-box .desc {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+
+  /* CALLOUT */
+  .callout {
+    background: #eff6ff;
+    border-left: 3px solid #116dff;
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    font-size: 15px;
+    color: #1e40af;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  .callout.orange {
+    background: #fff7ed;
+    border-color: #f97316;
+    color: #9a3412;
+  }
+
+  .callout.dark {
+    background: #0a0a0a;
+    border-color: #116dff;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    padding: 24px 28px;
+    border-radius: 0 10px 10px 0;
+  }
+
+  /* BULLET LIST */
+  ul.clean {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  ul.clean li {
+    font-size: 15px;
+    color: #374151;
+    line-height: 1.5;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  ul.clean li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 6px;
+    height: 6px;
+    background: #116dff;
+    border-radius: 50%;
+  }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  thead tr { background: #0a0a0a; }
+  thead th {
+    color: #fff;
+    text-align: left;
+    padding: 10px 14px;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+
+  tbody tr { border-bottom: 1px solid #f3f4f6; }
+  tbody tr:nth-child(even) { background: #f8fafc; }
+
+  tbody td {
+    padding: 10px 14px;
+    color: #374151;
+    vertical-align: top;
+    line-height: 1.4;
+  }
+
+  tbody td:first-child { font-weight: 600; color: #0a0a0a; }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+  }
+
+  .badge-med { background: #fef3c7; color: #92400e; }
+  .badge-high { background: #fee2e2; color: #991b1b; }
+  .badge-low { background: #d1fae5; color: #065f46; }
+
+  /* BEFORE/AFTER */
+  .before-after {
+    display: flex;
+    gap: 20px;
+  }
+
+  .ba-box {
+    flex: 1;
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+
+  .ba-box.before {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+  }
+
+  .ba-box.after {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+  }
+
+  .ba-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .ba-box.before .ba-label { color: #dc2626; }
+  .ba-box.after .ba-label { color: #16a34a; }
+
+  .ba-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #374151;
+  }
+
+  /* VALUE PROPS */
+  .props {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .prop {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .prop-num {
+    font-size: 20px;
+    font-weight: 800;
+    color: #116dff;
+    line-height: 1;
+    min-width: 28px;
+  }
+
+  .prop-text {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #374151;
+  }
+
+  .prop-text strong { color: #0a0a0a; }
+
+  /* MILESTONE LIST */
+  ul.milestones {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  ul.milestones li {
+    font-size: 14px;
+    color: #374151;
+    padding: 8px 14px;
+    background: #f8fafc;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  ul.milestones li::before {
+    content: '☐';
+    color: #116dff;
+    font-size: 16px;
+  }
+
+  /* NAVIGATION */
+  nav {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(8px);
+    padding: 10px 20px;
+    border-radius: 40px;
+    z-index: 100;
+  }
+
+  nav button {
+    background: none;
+    border: none;
+    color: #9ca3af;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: color 0.15s;
+  }
+
+  nav button:hover { color: #fff; }
+  nav button:disabled { color: #374151; cursor: default; }
+
+  .slide-counter {
+    font-size: 13px;
+    color: #6b7280;
+    font-weight: 500;
+    min-width: 60px;
+    text-align: center;
+  }
+
+  .progress-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #374151;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .dot.active { background: #116dff; }
+
+  /* SLIDE-SPECIFIC TWEAKS */
+  .wix-blue { color: #116dff; }
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- COVER -->
+  <div class="slide slide-cover active">
+    <div class="eyebrow">Wix Marketing — Internal GTM</div>
+    <h1>Mobile Funnel.<br><span>Site Generation</span><br>from Mobile.</h1>
+    <div class="meta">
+      <div><strong>Owner</strong> Yarin</div>
+      <div><strong>Date</strong> June 2026</div>
+      <div><strong>Stage</strong> Planning</div>
+      <div><strong>Audience</strong> Team + Leadership</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 1 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-num">01</div>
+      <div class="slide-title">The Problem / Market Moment</div>
+    </div>
+    <div class="slide-body">
+      <div class="callout dark">
+        Most people decide to build a website on their phone.<br>We make them finish on a computer.<br>That gap is where intent dies.
+      </div>
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="num blue">74%</div>
+          <div class="desc">of homepage visitors arrive on mobile. Only <strong>4%</strong> sign up. Desktop converts at <strong>34%</strong>.</div>
+        </div>
+        <div class="stat-box">
+          <div class="num blue">9x</div>
+          <div class="desc">conversion gap on Harmony (AI creation page). Mobile: <strong>2%</strong>. Desktop: <strong>17.9%</strong>. Mobile traffic: 66%, growing +31% M/M.</div>
+        </div>
+        <div class="stat-box">
+          <div class="num green">5.6%</div>
+          <div class="desc">Mobile premium rate vs. <strong>4.2%</strong> desktop. Mobile users who get through have stronger intent. This is not an audience quality problem.</div>
+        </div>
+      </div>
+      <div class="callout orange">
+        The cost of inaction: we are growing mobile traffic aggressively. The conversion gap is not closing on its own. Every month we wait, we convert almost none of it.
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-num">02</div>
+      <div class="slide-title">What We Built</div>
+    </div>
+    <div class="slide-body">
+      <div class="callout">
+        For the first time, users can generate a complete Wix site directly from their phone. No desktop required.
+      </div>
+      <div class="before-after">
+        <div class="ba-box before">
+          <div class="ba-label">Before</div>
+          <div class="ba-text">Mobile visitors hit a wall. Account creation on mobile, site creation on desktop. The moment of intent gets split across two sessions, two devices, and often two days. Most people never come back.</div>
+        </div>
+        <div class="ba-box after">
+          <div class="ba-label">After</div>
+          <div class="ba-text">From "I want a site" to "I have a site" — on the device where the decision was made. Enter a prompt. Wix AI generates the full site: structure, design, content. Ready to view, share, and publish.</div>
+        </div>
+      </div>
+      <div class="block">
+        <div class="label">Scope of this launch</div>
+        <ul class="clean">
+          <li>Mobile site generation: full flow, from prompt to published site</li>
+          <li>View, share, and publish from mobile</li>
+          <li>Full editing remains on desktop (subsequent phase)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-num">03</div>
+      <div class="slide-title">Who It's For</div>
+    </div>
+    <div class="slide-body two-col">
+      <div class="col">
+        <div class="block">
+          <div class="label">Primary segment</div>
+          <div class="body-text">Mobile-first small business owners and creators who get the impulse to build a site while they're out living their business. Between appointments. At a market. On a commute. Not sitting at a desk.</div>
+        </div>
+        <div class="block">
+          <div class="label">Their situation</div>
+          <ul class="clean">
+            <li><strong>Goal:</strong> a professional online presence, fast</li>
+            <li><strong>Pain:</strong> every tool requires a device they don't have in hand right now</li>
+            <li><strong>Fix:</strong> the gap between "I need a site" and "I have a site" collapses to minutes</li>
+          </ul>
+        </div>
+        <div class="block">
+          <div class="label">Out of scope (this launch)</div>
+          <div class="body-text">Full site editing from mobile. The creation flow is the unlock. Editing is a subsequent phase.</div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="callout">
+          These users already find us.<br><br>
+          74% of homepage visits are mobile.<br>
+          66% of Harmony visits are mobile and growing.<br><br>
+          They have intent. We have been making them wait.
+        </div>
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="num blue">+31%</div>
+            <div class="desc">Mobile traffic growth M/M on Harmony. The audience is arriving faster. Conversion is not keeping up.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-num">04</div>
+      <div class="slide-title">Competitive Landscape</div>
+    </div>
+    <div class="slide-body">
+      <table>
+        <thead>
+          <tr>
+            <th>Competitor</th>
+            <th>Their Approach</th>
+            <th>Their Weakness</th>
+            <th>Our Edge</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Squarespace</td>
+            <td>Mobile app for editing only. Creation still desktop-first.</td>
+            <td>No mobile creation flow. Same device-switch problem.</td>
+            <td>We close the creation gap. They don't.</td>
+          </tr>
+          <tr>
+            <td>Webflow</td>
+            <td>Desktop-native, developer-leaning. Mobile is an afterthought.</td>
+            <td>Not built for mobile-first SMBs at all.</td>
+            <td>Gap is industry-wide. We move first.</td>
+          </tr>
+          <tr>
+            <td>Shopify</td>
+            <td>Strong mobile app for store management. Creation still desktop-heavy.</td>
+            <td>Commerce-first. Not a site creation competitor directly.</td>
+            <td>Creation moment is ours to own.</td>
+          </tr>
+          <tr>
+            <td>Framer / Tilda</td>
+            <td>Design-forward, desktop-native.</td>
+            <td>Power users only. No mobile creation.</td>
+            <td>We serve the mass market they ignore.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        We are the first major website builder to close the impulse-to-site gap on mobile. No competitor has solved mobile creation. They have mobile management. That is a different product for a different moment.
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-num">05</div>
+      <div class="slide-title">The GTM Strategy</div>
+    </div>
+    <div class="slide-body">
+      <div class="callout">
+        Three motions in parallel. Acquisition-led, with re-engagement and brand layers running alongside.
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Channel</th>
+            <th>Role in Launch</th>
+            <th>Timing</th>
+            <th>Owner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Paid social (Reels, TikTok, Shorts)</td>
+            <td>Primary acquisition. Show the 60-second creation experience. Demo-able in 15 seconds.</td>
+            <td>Launch day + 30d</td>
+            <td>Performance</td>
+          </tr>
+          <tr>
+            <td>Email + push (lapsed, never-created)</td>
+            <td>Re-engagement. "The blocker is gone. Build your site now."</td>
+            <td>Launch + 48h</td>
+            <td>CRM / Lifecycle</td>
+          </tr>
+          <tr>
+            <td>Organic social + creator seeding</td>
+            <td>Brand layer. Seed the insight: your website moment is now on your phone.</td>
+            <td>Pre-launch + ongoing</td>
+            <td>Brand / Social</td>
+          </tr>
+          <tr>
+            <td>App store optimization</td>
+            <td>Capture intent from users searching for mobile site builders.</td>
+            <td>Pre-launch</td>
+            <td>Growth / ASO</td>
+          </tr>
+          <tr>
+            <td>PR + product page update</td>
+            <td>Press, Harmony page update, homepage callout.</td>
+            <td>Launch day</td>
+            <td>Comms + Web</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SLIDE 6 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-num">06</div>
+      <div class="slide-title">Messaging &amp; Positioning</div>
+    </div>
+    <div class="slide-body two-col">
+      <div class="col">
+        <div class="block">
+          <div class="label">Headline</div>
+          <div class="callout dark" style="font-size:18px; padding: 20px 22px;">
+            The moment you think of your business, you can have a website.
+          </div>
+        </div>
+        <div class="block">
+          <div class="label">Value Props</div>
+          <div class="props">
+            <div class="prop">
+              <div class="prop-num">1</div>
+              <div class="prop-text"><strong>From idea to site in minutes, on your phone.</strong> No desktop. No waiting. No coming back later.</div>
+            </div>
+            <div class="prop">
+              <div class="prop-num">2</div>
+              <div class="prop-text"><strong>AI builds it. You own it.</strong> Tell Wix what your business does. It generates the site. Yours to publish, share, and grow.</div>
+            </div>
+            <div class="prop">
+              <div class="prop-num">3</div>
+              <div class="prop-text"><strong>Built for how you actually work.</strong> Most people run their business from their phone. Now their website starts there too.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="block">
+          <div class="label">Message by audience</div>
+          <table>
+            <thead><tr><th>Audience</th><th>Core message</th></tr></thead>
+            <tbody>
+              <tr><td>Acquisition</td><td>You no longer have to wait until you're at a computer.</td></tr>
+              <tr><td>Re-engagement</td><td>The reason you didn't finish is gone. 60 seconds from here.</td></tr>
+              <tr><td>Internal team</td><td>This is an acquisition play. We're unlocking a conversion gap that has existed since mobile became primary.</td></tr>
+              <tr><td>Leadership</td><td>Mobile is 43-74% of our traffic. We convert almost none of it. This changes that.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="block">
+          <div class="label">Tone</div>
+          <div class="body-text">Direct. Confident. No hype.<br>
+          <strong>Use:</strong> "right now", "your phone", "your site", "minutes", "done"<br>
+          <strong>Never:</strong> "revolutionary", "game-changing", "seamless", "innovative"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-num">07</div>
+      <div class="slide-title">Launch Plan</div>
+    </div>
+    <div class="slide-body two-col">
+      <div class="col">
+        <div class="block">
+          <div class="label">Timeline</div>
+          <table>
+            <thead><tr><th>Phase</th><th>Timing</th><th>Owner</th></tr></thead>
+            <tbody>
+              <tr><td>Pre-launch: creator seeding, ASO, creative production, segment build</td><td>T-2 weeks</td><td>Brand, Growth, CRM</td></tr>
+              <tr><td>Launch day: product live, PR, page updates, organic post</td><td>Day 0</td><td>Comms, Web, Social</td></tr>
+              <tr><td>Re-engagement email + push to never-created segment</td><td>+48h</td><td>CRM</td></tr>
+              <tr><td>Paid social live, creative testing begins</td><td>+0-3 days</td><td>Performance</td></tr>
+              <tr><td>First data read: Harmony mobile Free/Anon, completion rate, reactivation</td><td>+30 days</td><td>Analytics</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col">
+        <div class="block">
+          <div class="label">Key Milestones</div>
+          <ul class="milestones">
+            <li>Mobile creation flow QA and quality bar confirmed (pre-launch gate)</li>
+            <li>Paid social creative produced and tested</li>
+            <li>Lapsed user segment defined and email copy approved</li>
+            <li>wix.com/harmony updated for mobile positioning (launch day)</li>
+            <li>30-day data review scheduled (set now)</li>
+          </ul>
+        </div>
+        <div class="callout orange">
+          Hard gate: paid acquisition does not launch until mobile-generated site quality is confirmed. A bad first impression on paid traffic is expensive to undo.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-num">08</div>
+      <div class="slide-title">Success Metrics</div>
+    </div>
+    <div class="slide-body">
+      <div class="stat-row">
+        <div class="stat-box" style="border-color: #116dff; border-width: 2px;">
+          <div class="label" style="color:#116dff;">Primary metric</div>
+          <div class="num blue" style="font-size:28px; margin-top:8px;">Mobile Free/Anon — Harmony</div>
+          <div class="desc" style="margin-top:8px;">Baseline: <strong>2.0%</strong>. Target: <strong>8-10%+</strong> within 60 days. This is the sharpest expression of the gap. If Mobile Funnel works, it shows here first.</div>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Baseline</th>
+            <th>Target</th>
+            <th>Timeframe</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Mobile Free/Anon, Harmony</td>
+            <td>2.0%</td>
+            <td>8-10%+</td>
+            <td>60 days</td>
+          </tr>
+          <tr>
+            <td>Mobile Free/Anon, Homepage EN</td>
+            <td>4.0%</td>
+            <td>7-9%</td>
+            <td>60 days</td>
+          </tr>
+          <tr>
+            <td>Mobile Premiums M/M growth</td>
+            <td>+26% M/M</td>
+            <td>Sustain or accelerate</td>
+            <td>Ongoing</td>
+          </tr>
+          <tr>
+            <td>Lapsed user reactivation rate</td>
+            <td>TBD at launch</td>
+            <td>Establish baseline</td>
+            <td>14 days post-email</td>
+          </tr>
+          <tr>
+            <td>Mobile site creation completion rate</td>
+            <td>0% (new metric)</td>
+            <td>Establish baseline, track weekly</td>
+            <td>Launch + 7 days</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        Mobile creation completion is a new funnel event. Needs to be instrumented before launch. Track via Growth Funnel KPIs dashboard, filtered by device + Harmony URL.
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-num">09</div>
+      <div class="slide-title">Risks &amp; Mitigations</div>
+    </div>
+    <div class="slide-body">
+      <table>
+        <thead>
+          <tr>
+            <th>Risk</th>
+            <th>Likelihood</th>
+            <th>Impact</th>
+            <th>Mitigation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Mobile-generated site quality is below the bar</td>
+            <td><span class="badge badge-med">Medium</span></td>
+            <td><span class="badge badge-high">High</span></td>
+            <td>Hard gate: do not launch paid until quality is confirmed. Launch to organic first.</td>
+          </tr>
+          <tr>
+            <td>"Generate but not edit" frustrates users who want to customize immediately</td>
+            <td><span class="badge badge-med">Medium</span></td>
+            <td><span class="badge badge-med">Medium</span></td>
+            <td>Set expectation in the flow: "Full editing on desktop." Frame as preview, not finished product.</td>
+          </tr>
+          <tr>
+            <td>Competitors ship mobile creation within 6 months</td>
+            <td><span class="badge badge-med">Medium</span></td>
+            <td><span class="badge badge-med">Medium</span></td>
+            <td>Ship fast, capture the narrative first. Being first and known as first matters more.</td>
+          </tr>
+          <tr>
+            <td>Paid social creative underperforms</td>
+            <td><span class="badge badge-med">Medium</span></td>
+            <td><span class="badge badge-med">Medium</span></td>
+            <td>Test 3+ creative angles in first 2 weeks before scaling. Demo, testimonial, problem-framing formats.</td>
+          </tr>
+          <tr>
+            <td>Lapsed user unsubscribe rate spikes</td>
+            <td><span class="badge badge-low">Low</span></td>
+            <td><span class="badge badge-low">Low</span></td>
+            <td>Segment carefully (account created, no site built, last 12 months). One send, not a drip.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout orange">
+        Biggest open question: do we have data on drop-off at the device-switch step? Quantify how many users created an account on mobile and never started a site on desktop. If that number exists, it belongs on Slide 1. Pull it before the leadership presentation.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- NAV -->
+<nav>
+  <button id="prev" onclick="go(-1)" disabled>&#8592;</button>
+  <div class="progress-dots" id="dots"></div>
+  <div class="slide-counter" id="counter">0 / 10</div>
+  <button id="next" onclick="go(1)">&#8594;</button>
+</nav>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+
+  const dotsEl = document.getElementById('dots');
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  });
+
+  function update() {
+    slides.forEach((s, i) => s.classList.toggle('active', i === current));
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + slides.length;
+    document.getElementById('prev').disabled = current === 0;
+    document.getElementById('next').disabled = current === slides.length - 1;
+  }
+
+  function go(dir) { goTo(current + dir); }
+  function goTo(i) { current = Math.max(0, Math.min(slides.length - 1, i)); update(); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(-1);
+  });
+
+  update();
+</script>
+</body>
+</html>

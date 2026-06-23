@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biweekly Dashboard — Yarin Singolda</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f5f5f7;
+    color: #1a1a1a;
+    min-height: 100vh;
+    padding: 40px;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #e0e0e5;
+    padding-bottom: 24px;
+  }
+
+  header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  header h1 span {
+    color: #4a4aee;
+  }
+
+  header .meta {
+    text-align: right;
+    font-size: 13px;
+    color: #888;
+    line-height: 1.6;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 16px;
+  }
+
+  .section {
+    margin-bottom: 40px;
+  }
+
+  /* KPI CARDS */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+
+  .kpi-card {
+    background: #ffffff;
+    border: 1px solid #e8e8ec;
+    border-radius: 12px;
+    padding: 20px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+
+  .kpi-card .label {
+    font-size: 11px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+
+  .kpi-card .value {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+    color: #1a1a1a;
+  }
+
+  .kpi-card .trends {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+  }
+
+  .kpi-card .trend {
+    display: flex;
+    justify-content: space-between;
+    color: #aaa;
+  }
+
+  .kpi-card .trend .delta {
+    font-weight: 600;
+  }
+
+  .up { color: #4caf7d; }
+  .down { color: #e05656; }
+
+  /* TESTS */
+  .tests-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .test-card {
+    background: #ffffff;
+    border: 1px solid #e8e8ec;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+
+  .test-card .test-status {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  .status-closed { background: #f0f0f4; color: #999; }
+  .status-open { background: #eeeeff; color: #4a4aee; }
+
+  .test-card .test-name {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #1a1a1a;
+  }
+
+  .test-card .test-row {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 6px;
+    line-height: 1.5;
+  }
+
+  .test-card .test-row strong {
+    color: #555;
+    font-weight: 500;
+  }
+
+  /* SHIPPED + FOCUS + FLAGS */
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr;
+    gap: 12px;
+  }
+
+  .info-card {
+    background: #ffffff;
+    border: 1px solid #e8e8ec;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+
+  .info-card .card-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 16px;
+  }
+
+  .info-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .info-card ul li {
+    font-size: 13px;
+    color: #444;
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.4;
+  }
+
+  .info-card ul li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: #4a4aee;
+    font-weight: 700;
+  }
+
+  .info-card .body-text {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .flag-card {
+    border-color: #f5e8d8;
+    background: #fffaf5;
+  }
+
+  .flag-card .card-title {
+    color: #c07830;
+  }
+
+  .flag-card .body-text {
+    color: #a06020;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Biweekly <span>Dashboard</span></h1>
+  <div class="meta">
+    Yarin Singolda · Site Creation · Wix<br>
+    June 23, 2026 · 28-day bucket
+  </div>
+</header>
+
+<!-- KPIs -->
+<div class="section">
+  <div class="section-label">Homepage Performance</div>
+  <div class="kpi-grid">
+
+    <div class="kpi-card">
+      <div class="label">Anon Views</div>
+      <div class="value">3.8M</div>
+      <div class="trends">
+        <div class="trend"><span>W/W</span><span class="delta down">-8%</span></div>
+        <div class="trend"><span>M/M</span><span class="delta down">-11%</span></div>
+      </div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="label">Free Signups</div>
+      <div class="value">338.9K</div>
+      <div class="trends">
+        <div class="trend"><span>W/W</span><span class="delta down">-3%</span></div>
+        <div class="trend"><span>M/M</span><span class="delta down">-12%</span></div>
+      </div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="label">Sign-up Rate</div>
+      <div class="value">10.6%</div>
+      <div class="trends">
+        <div class="trend"><span>W/W</span><span class="delta up">+6%</span></div>
+        <div class="trend"><span>M/M</span><span class="delta up">+2%</span></div>
+      </div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="label">Premiums</div>
+      <div class="value">15.1K</div>
+      <div class="trends">
+        <div class="trend"><span>W/W</span><span class="delta down">-2%</span></div>
+        <div class="trend"><span>M/M</span><span class="delta down">-11%</span></div>
+      </div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="label">Premium Rate</div>
+      <div class="value">4.4%</div>
+      <div class="trends">
+        <div class="trend"><span>W/W</span><span class="delta up">+1%</span></div>
+        <div class="trend"><span>M/M</span><span class="delta up">+1%</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TESTS -->
+<div class="section">
+  <div class="section-label">Tests</div>
+  <div class="tests-grid">
+
+    <div class="test-card">
+      <div class="test-status status-closed">Closed</div>
+      <div class="test-name">Domains above header</div>
+      <div class="test-row"><strong>Result:</strong> Variant B lost. Engagement seen but low numbers — position not prominent enough.</div>
+      <div class="test-row"><strong>Next:</strong> New test launched with domain in hero, below header.</div>
+    </div>
+
+    <div class="test-card">
+      <div class="test-status status-open">Running</div>
+      <div class="test-name">Domain in hero (below header)</div>
+      <div class="test-row"><strong>Hypothesis:</strong> More prominent placement will drive higher domain search engagement.</div>
+      <div class="test-row"><strong>Where:</strong> Homepage hero</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- BOTTOM ROW -->
+<div class="section">
+  <div class="bottom-grid">
+
+    <div class="info-card">
+      <div class="card-title">What Shipped</div>
+      <ul>
+        <li>Launched new domain placement test</li>
+        <li><a href="https://docs.google.com/presentation/d/1lf_qqOHwWCjpggA69FD18VT7AeGI2y4xDUe4ZZsBs78/edit?usp=sharing" target="_blank" style="color:#4a4aee;text-decoration:none;">Brief for Mobile funnel</a> <span style="font-size:11px;color:#999;background:#f0f0f4;padding:2px 7px;border-radius:4px;margin-left:4px;">Test closed</span></li>
+        <li><a href="https://docs.google.com/presentation/d/1803uyYMxdygtUX0yFhS36Rx90UJkKdkJvGNIy7vbpWA/edit?usp=sharing" target="_blank" style="color:#4a4aee;text-decoration:none;">Brief for Bring My Site</a> <span style="font-size:11px;color:#999;background:#f0f0f4;padding:2px 7px;border-radius:4px;margin-left:4px;">Test closed</span></li>
+        <li>AI Website Builder optimization</li>
+      </ul>
+    </div>
+
+    <div class="info-card">
+      <div class="card-title">Current Focus</div>
+      <p class="body-text">Bring My Site release.</p>
+    </div>
+
+    <div class="info-card flag-card">
+      <div class="card-title">Flags</div>
+      <p class="body-text">New homepage launch is on hold pending the current domain placement test. Recommendation: go live immediately after the test concludes. Alignment needed on this timeline.</p>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
