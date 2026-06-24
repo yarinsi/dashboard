@@ -9,42 +9,42 @@
 
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: #0d0d10;
-    color: #e8e8f0;
+    background: #f5f5f7;
+    color: #1a1a1a;
     min-height: 100vh;
-    padding: 40px 48px;
+    padding: 40px;
   }
-
-  a { color: #7b7ef5; text-decoration: none; }
-  a:hover { color: #a0a3ff; }
 
   /* VERSION NAV */
   .version-nav {
     display: flex;
     align-items: center;
     gap: 6px;
-    margin-bottom: 36px;
+    margin-bottom: 32px;
     flex-wrap: wrap;
   }
 
   .version-tab {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
-    padding: 5px 14px;
+    padding: 6px 14px;
     border-radius: 20px;
-    border: 1px solid #2a2a35;
-    background: transparent;
-    color: #555;
+    border: 1px solid #e0e0e5;
+    background: #fff;
+    color: #888;
     cursor: pointer;
     transition: all 0.15s;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.3px;
   }
 
-  .version-tab:hover { border-color: #5b5ef4; color: #7b7ef5; }
+  .version-tab:hover {
+    border-color: #4a4aee;
+    color: #4a4aee;
+  }
 
   .version-tab.active {
-    background: #5b5ef4;
-    border-color: #5b5ef4;
+    background: #4a4aee;
+    border-color: #4a4aee;
     color: #fff;
   }
 
@@ -56,170 +56,155 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 36px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #e0e0e5;
     padding-bottom: 24px;
-    border-bottom: 1px solid #1e1e28;
   }
 
   header h1 {
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 700;
-    letter-spacing: -0.6px;
-    color: #f0f0f8;
+    letter-spacing: -0.5px;
   }
 
-  header h1 span { color: #7b7ef5; }
+  header h1 span { color: #4a4aee; }
 
   header .meta {
     text-align: right;
-    font-size: 12px;
-    color: #555;
-    line-height: 1.7;
+    font-size: 13px;
+    color: #888;
+    line-height: 1.6;
   }
-
-  /* SECTION */
-  .section { margin-bottom: 32px; }
 
   .section-label {
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 600;
-    letter-spacing: 1.8px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: #444;
-    margin-bottom: 14px;
+    color: #999;
+    margin-bottom: 16px;
   }
 
-  /* CARDS base */
-  .card {
-    background: #13131a;
-    border: 1px solid #1e1e28;
-    border-radius: 14px;
-    padding: 20px;
-  }
+  .section { margin-bottom: 40px; }
 
-  /* KPI GRID */
+  /* KPI CARDS */
   .kpi-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
+    gap: 12px;
   }
 
   .kpi-card {
-    background: #13131a;
-    border: 1px solid #1e1e28;
-    border-radius: 14px;
-    padding: 18px 16px 14px;
-    transition: border-color 0.15s;
+    background: #ffffff;
+    border: 1px solid #e8e8ec;
+    border-radius: 12px;
+    padding: 20px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
   }
 
-  .kpi-card.up-card { border-color: #1d3326; }
-  .kpi-card.down-card { border-color: #2e1a1a; }
-
   .kpi-card .label {
-    font-size: 10px;
-    color: #444;
+    font-size: 11px;
+    color: #999;
     text-transform: uppercase;
-    letter-spacing: 1.2px;
+    letter-spacing: 1px;
     margin-bottom: 10px;
   }
 
   .kpi-card .value {
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 700;
     letter-spacing: -1px;
-    color: #f0f0f8;
-    margin-bottom: 10px;
-    line-height: 1;
+    margin-bottom: 12px;
+    color: #1a1a1a;
   }
 
-  .sparkline {
-    display: block;
-    width: 100%;
-    height: 28px;
-    margin-bottom: 10px;
+  .kpi-card .trends {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
   }
 
-  .kpi-card .delta-row {
+  .kpi-card .trend {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    font-size: 11px;
+    color: #aaa;
   }
 
-  .kpi-card .delta-label { color: #444; }
-  .kpi-card .delta { font-weight: 700; font-size: 12px; }
+  .kpi-card .trend .delta { font-weight: 600; }
 
   .up { color: #4caf7d; }
   .down { color: #e05656; }
-  .neutral { color: #888; }
 
-  /* TESTS GRID */
+  /* TESTS */
   .tests-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: 12px;
   }
 
   .test-card {
-    background: #13131a;
-    border: 1px solid #1e1e28;
-    border-radius: 14px;
-    padding: 18px 20px;
+    background: #ffffff;
+    border: 1px solid #e8e8ec;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
   }
 
-  .test-status {
+  .test-card .test-status {
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 1.2px;
     text-transform: uppercase;
-    padding: 3px 9px;
-    border-radius: 5px;
+    padding: 3px 8px;
+    border-radius: 4px;
     display: inline-block;
     margin-bottom: 12px;
   }
 
-  .status-closed { background: #1e1e28; color: #555; }
-  .status-open { background: #1c1c40; color: #7b7ef5; }
-  .status-winner { background: #132a1e; color: #4caf7d; }
-  .status-loser { background: #2a1212; color: #e05656; }
+  .status-closed { background: #f0f0f4; color: #999; }
+  .status-open { background: #eeeeff; color: #4a4aee; }
 
-  .test-name {
-    font-size: 14px;
+  .test-card .test-name {
+    font-size: 15px;
     font-weight: 600;
     margin-bottom: 10px;
-    color: #e8e8f0;
-    line-height: 1.3;
+    color: #1a1a1a;
   }
 
-  .test-row {
+  .test-card .test-row {
     font-size: 12px;
-    color: #555;
-    margin-bottom: 5px;
+    color: #888;
+    margin-bottom: 6px;
     line-height: 1.5;
   }
 
-  .test-row strong { color: #888; font-weight: 500; }
+  .test-card .test-row strong {
+    color: #555;
+    font-weight: 500;
+  }
 
-  /* BOTTOM GRID */
+  /* SHIPPED + FOCUS + FLAGS */
   .bottom-grid {
     display: grid;
-    grid-template-columns: 2fr 1.4fr 1.4fr;
-    gap: 10px;
+    grid-template-columns: 2fr 1.5fr 1.5fr;
+    gap: 12px;
   }
 
   .info-card {
-    background: #13131a;
-    border: 1px solid #1e1e28;
-    border-radius: 14px;
+    background: #ffffff;
+    border: 1px solid #e8e8ec;
+    border-radius: 12px;
     padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
   }
 
-  .card-title {
-    font-size: 10px;
+  .info-card .card-title {
+    font-size: 11px;
     font-weight: 600;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
-    color: #444;
+    color: #999;
     margin-bottom: 16px;
   }
 
@@ -227,61 +212,55 @@
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 9px;
+    gap: 10px;
   }
 
   .info-card ul li {
     font-size: 13px;
-    color: #aaa;
+    color: #444;
     padding-left: 14px;
     position: relative;
-    line-height: 1.45;
+    line-height: 1.4;
   }
 
   .info-card ul li::before {
     content: '·';
     position: absolute;
     left: 0;
-    color: #5b5ef4;
+    color: #4a4aee;
     font-weight: 700;
   }
 
-  .body-text {
+  .info-card .body-text {
     font-size: 13px;
-    color: #aaa;
+    color: #444;
     line-height: 1.6;
   }
 
-  /* FLAG CARD */
   .flag-card {
-    border-color: #2e2010;
-    background: #100e0a;
+    border-color: #f5e8d8;
+    background: #fffaf5;
   }
 
-  .flag-card .card-title { color: #7a4d1a; }
-  .flag-card .body-text { color: #a06830; }
-
-  /* BADGE CHIPS */
-  .badge {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 600;
-    padding: 2px 7px;
-    border-radius: 4px;
-    margin-left: 5px;
-    vertical-align: middle;
-    letter-spacing: 0.3px;
-  }
-
-  .badge-open { background: #1c1c40; color: #7b7ef5; }
-  .badge-closed { background: #1e1e28; color: #555; }
+  .flag-card .card-title { color: #c07830; }
+  .flag-card .body-text { color: #a06020; }
 
   /* FROM LAST MEETING */
   .last-meeting-card {
-    background: #13131a;
-    border: 1px solid #1e1e28;
-    border-radius: 14px;
-    padding: 18px 22px;
+    background: #ffffff;
+    border: 1px solid #e8e8ec;
+    border-radius: 12px;
+    padding: 20px 24px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+
+  .last-meeting-card .card-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 16px;
   }
 
   .last-meeting-table {
@@ -292,72 +271,50 @@
 
   .last-meeting-table th {
     text-align: left;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 600;
-    color: #333;
-    letter-spacing: 1px;
+    color: #bbb;
+    letter-spacing: 0.8px;
     text-transform: uppercase;
     padding-bottom: 10px;
-    border-bottom: 1px solid #1e1e28;
+    border-bottom: 1px solid #f0f0f4;
   }
 
   .last-meeting-table td {
     padding: 10px 0;
-    border-bottom: 1px solid #17171f;
-    color: #888;
+    border-bottom: 1px solid #f7f7fa;
+    color: #444;
     vertical-align: top;
     line-height: 1.5;
   }
 
-  .last-meeting-table td:first-child { width: 28px; color: #333; font-size: 11px; }
-  .last-meeting-table td:last-child { width: 100px; color: #555; font-size: 11px; }
+  .last-meeting-table td:first-child {
+    width: 28px;
+    color: #ccc;
+    font-size: 12px;
+  }
+
+  .last-meeting-table td:last-child {
+    width: 100px;
+    color: #999;
+    font-size: 12px;
+  }
+
   .last-meeting-table tr:last-child td { border-bottom: none; }
 
-  /* ARCHIVE */
+  /* ARCHIVE DIMMING */
+  .version-panel:not(.active) { opacity: 0.9; }
   .archive-badge {
     display: inline-block;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 600;
-    color: #444;
-    background: #1a1a22;
+    color: #999;
+    background: #f0f0f4;
     padding: 3px 10px;
     border-radius: 4px;
     margin-bottom: 24px;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 1024px) {
-    body { padding: 28px 24px; }
-
-    .kpi-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .bottom-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .bottom-grid .info-card:last-child {
-      grid-column: 1 / -1;
-    }
-  }
-
-  @media (max-width: 700px) {
-    body { padding: 20px 16px; }
-
-    header { flex-direction: column; align-items: flex-start; gap: 8px; }
-    header .meta { text-align: left; }
-
-    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-    .tests-grid { grid-template-columns: 1fr; }
-    .bottom-grid { grid-template-columns: 1fr; }
-    .bottom-grid .info-card:last-child { grid-column: auto; }
-  }
-
-  @media (max-width: 400px) {
-    .kpi-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -410,98 +367,43 @@
   <div class="section-label">Homepage Performance</div>
   <div class="kpi-grid">
 
-    <div class="kpi-card down-card">
+    <div class="kpi-card">
       <div class="label">Anon Views</div>
       <div class="value">3.8M</div>
-      <svg class="sparkline" viewBox="0 0 80 28" preserveAspectRatio="none">
-        <polyline points="0,8 13,10 26,13 39,16 52,19 65,21 80,24"
-          fill="none" stroke="#e05656" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" opacity="0.7"/>
-        <linearGradient id="dg1" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="#e05656" stop-opacity="0.15"/>
-          <stop offset="100%" stop-color="#e05656" stop-opacity="0"/>
-        </linearGradient>
-        <polygon points="0,8 13,10 26,13 39,16 52,19 65,21 80,24 80,28 0,28"
-          fill="url(#dg1)"/>
-      </svg>
-      <div class="delta-row">
-        <span class="delta-label">Y/Y</span>
-        <span class="delta down">-30%</span>
+      <div class="trends">
+        <div class="trend"><span>Y/Y</span><span class="delta down">-30%</span></div>
       </div>
     </div>
 
-    <div class="kpi-card down-card">
+    <div class="kpi-card">
       <div class="label">Free Signups</div>
       <div class="value">338.9K</div>
-      <svg class="sparkline" viewBox="0 0 80 28" preserveAspectRatio="none">
-        <polyline points="0,6 13,9 26,11 39,14 52,17 65,20 80,22"
-          fill="none" stroke="#e05656" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" opacity="0.7"/>
-        <linearGradient id="dg2" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="#e05656" stop-opacity="0.15"/>
-          <stop offset="100%" stop-color="#e05656" stop-opacity="0"/>
-        </linearGradient>
-        <polygon points="0,6 13,9 26,11 39,14 52,17 65,20 80,22 80,28 0,28"
-          fill="url(#dg2)"/>
-      </svg>
-      <div class="delta-row">
-        <span class="delta-label">Y/Y</span>
-        <span class="delta down">-22%</span>
+      <div class="trends">
+        <div class="trend"><span>Y/Y</span><span class="delta down">-22%</span></div>
       </div>
     </div>
 
-    <div class="kpi-card up-card">
+    <div class="kpi-card">
       <div class="label">Sign-up Rate</div>
       <div class="value">10.6%</div>
-      <svg class="sparkline" viewBox="0 0 80 28" preserveAspectRatio="none">
-        <polyline points="0,22 13,19 26,17 39,14 52,11 65,8 80,5"
-          fill="none" stroke="#4caf7d" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" opacity="0.7"/>
-        <linearGradient id="ug1" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="#4caf7d" stop-opacity="0.15"/>
-          <stop offset="100%" stop-color="#4caf7d" stop-opacity="0"/>
-        </linearGradient>
-        <polygon points="0,22 13,19 26,17 39,14 52,11 65,8 80,5 80,28 0,28"
-          fill="url(#ug1)"/>
-      </svg>
-      <div class="delta-row">
-        <span class="delta-label">Y/Y</span>
-        <span class="delta up">+13%</span>
+      <div class="trends">
+        <div class="trend"><span>Y/Y</span><span class="delta up">+13%</span></div>
       </div>
     </div>
 
-    <div class="kpi-card down-card">
+    <div class="kpi-card">
       <div class="label">Premiums</div>
       <div class="value">15.1K</div>
-      <svg class="sparkline" viewBox="0 0 80 28" preserveAspectRatio="none">
-        <polyline points="0,5 13,8 26,12 39,15 52,18 65,21 80,24"
-          fill="none" stroke="#e05656" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" opacity="0.7"/>
-        <linearGradient id="dg3" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="#e05656" stop-opacity="0.15"/>
-          <stop offset="100%" stop-color="#e05656" stop-opacity="0"/>
-        </linearGradient>
-        <polygon points="0,5 13,8 26,12 39,15 52,18 65,21 80,24 80,28 0,28"
-          fill="url(#dg3)"/>
-      </svg>
-      <div class="delta-row">
-        <span class="delta-label">Y/Y</span>
-        <span class="delta down">-24%</span>
+      <div class="trends">
+        <div class="trend"><span>Y/Y</span><span class="delta down">-24%</span></div>
       </div>
     </div>
 
-    <div class="kpi-card down-card">
+    <div class="kpi-card">
       <div class="label">Premium Rate</div>
       <div class="value">4.4%</div>
-      <svg class="sparkline" viewBox="0 0 80 28" preserveAspectRatio="none">
-        <polyline points="0,12 13,13 26,12 39,14 52,15 65,16 80,17"
-          fill="none" stroke="#e05656" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" opacity="0.7"/>
-        <linearGradient id="dg4" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="#e05656" stop-opacity="0.15"/>
-          <stop offset="100%" stop-color="#e05656" stop-opacity="0"/>
-        </linearGradient>
-        <polygon points="0,12 13,13 26,12 39,14 52,15 65,16 80,17 80,28 0,28"
-          fill="url(#dg4)"/>
-      </svg>
-      <div class="delta-row">
-        <span class="delta-label">Y/Y</span>
-        <span class="delta down">-2%</span>
+      <div class="trends">
+        <div class="trend"><span>Y/Y</span><span class="delta down">-2%</span></div>
       </div>
     </div>
 
@@ -521,7 +423,7 @@
     </div>
 
     <div class="test-card">
-      <div class="test-status status-winner">Winner</div>
+      <div class="test-status status-closed">Closed</div>
       <div class="test-name">AI Website Builder Revamp</div>
       <div class="test-row"><strong>Duration:</strong> 28 days</div>
       <div class="test-row"><strong>Decision:</strong> Moved to Variant B</div>
@@ -547,14 +449,8 @@
       <div class="card-title">What Shipped</div>
       <ul>
         <li>Launched new domain placement test</li>
-        <li>
-          <a href="https://docs.google.com/presentation/d/1lf_qqOHwWCjpggA69FD18VT7AeGI2y4xDUe4ZZsBs78/edit?usp=sharing" target="_blank">Brief for Mobile funnel</a>
-          <span class="badge badge-open">Open</span>
-        </li>
-        <li>
-          <a href="https://docs.google.com/presentation/d/1803uyYMxdygtUX0yFhS36Rx90UJkKdkJvGNIy7vbpWA/edit?usp=sharing" target="_blank">Brief for Bring My Site</a>
-          <span class="badge badge-closed">Test closed</span>
-        </li>
+        <li><a href="https://docs.google.com/presentation/d/1lf_qqOHwWCjpggA69FD18VT7AeGI2y4xDUe4ZZsBs78/edit?usp=sharing" target="_blank" style="color:#4a4aee;text-decoration:none;">Brief for Mobile funnel</a> <span style="font-size:11px;color:#4a4aee;background:#eeeeff;padding:2px 7px;border-radius:4px;margin-left:4px;">Open</span></li>
+        <li><a href="https://docs.google.com/presentation/d/1803uyYMxdygtUX0yFhS36Rx90UJkKdkJvGNIy7vbpWA/edit?usp=sharing" target="_blank" style="color:#4a4aee;text-decoration:none;">Brief for Bring My Site</a> <span style="font-size:11px;color:#999;background:#f0f0f4;padding:2px 7px;border-radius:4px;margin-left:4px;">Test closed</span></li>
         <li>AI Website Builder optimization</li>
       </ul>
     </div>
@@ -563,10 +459,10 @@
       <div class="card-title">Current Focus</div>
       <ul>
         <li>Bring My Site release
-          <ul style="margin-top:8px;padding-left:12px;display:flex;flex-direction:column;gap:6px;">
-            <li style="font-size:12px;color:#444;padding-left:12px;">SEO + PPC research on potential</li>
-            <li style="font-size:12px;color:#444;padding-left:12px;">Create a marketing page</li>
-            <li style="font-size:12px;color:#444;padding-left:12px;">Plan blog post refresh</li>
+          <ul style="margin-top:6px;padding-left:12px;display:flex;flex-direction:column;gap:5px;">
+            <li style="font-size:12px;color:#999;padding-left:12px;">SEO + PPC research on potential</li>
+            <li style="font-size:12px;color:#999;padding-left:12px;">Create a marketing page</li>
+            <li style="font-size:12px;color:#999;padding-left:12px;">Plan blog post refresh</li>
           </ul>
         </li>
       </ul>
