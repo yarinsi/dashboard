@@ -15,6 +15,43 @@
     padding: 40px;
   }
 
+  /* VERSION NAV */
+  .version-nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  .version-tab {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid #e0e0e5;
+    background: #fff;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.3px;
+  }
+
+  .version-tab:hover {
+    border-color: #4a4aee;
+    color: #4a4aee;
+  }
+
+  .version-tab.active {
+    background: #4a4aee;
+    border-color: #4a4aee;
+    color: #fff;
+  }
+
+  .version-panel { display: none; }
+  .version-panel.active { display: block; }
+
+  /* HEADER */
   header {
     display: flex;
     justify-content: space-between;
@@ -30,9 +67,7 @@
     letter-spacing: -0.5px;
   }
 
-  header h1 span {
-    color: #4a4aee;
-  }
+  header h1 span { color: #4a4aee; }
 
   header .meta {
     text-align: right;
@@ -50,9 +85,7 @@
     margin-bottom: 16px;
   }
 
-  .section {
-    margin-bottom: 40px;
-  }
+  .section { margin-bottom: 40px; }
 
   /* KPI CARDS */
   .kpi-grid {
@@ -98,9 +131,7 @@
     color: #aaa;
   }
 
-  .kpi-card .trend .delta {
-    font-weight: 600;
-  }
+  .kpi-card .trend .delta { font-weight: 600; }
 
   .up { color: #4caf7d; }
   .down { color: #e05656; }
@@ -211,13 +242,8 @@
     background: #fffaf5;
   }
 
-  .flag-card .card-title {
-    color: #c07830;
-  }
-
-  .flag-card .body-text {
-    color: #a06020;
-  }
+  .flag-card .card-title { color: #c07830; }
+  .flag-card .body-text { color: #a06020; }
 
   /* FROM LAST MEETING */
   .last-meeting-card {
@@ -274,12 +300,36 @@
     font-size: 12px;
   }
 
-  .last-meeting-table tr:last-child td {
-    border-bottom: none;
+  .last-meeting-table tr:last-child td { border-bottom: none; }
+
+  /* ARCHIVE DIMMING */
+  .version-panel:not(.active) { opacity: 0.9; }
+  .archive-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    color: #999;
+    background: #f0f0f4;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
   }
 </style>
 </head>
 <body>
+
+<!-- VERSION TABS -->
+<nav class="version-nav" id="versionNav">
+  <button class="version-tab active" onclick="showVersion('v-2026-06-23')">Jun 23, 2026</button>
+  <!-- ARCHIVE TABS: add new buttons here when archiving -->
+</nav>
+
+<!-- ============================================================ -->
+<!-- VERSION: Jun 23, 2026 (CURRENT) -->
+<!-- ============================================================ -->
+<div class="version-panel active" id="v-2026-06-23">
 
 <header>
   <h1>Biweekly <span>Dashboard</span></h1>
@@ -307,7 +357,6 @@
           <td>When do we go live with the new homepage?</td>
           <td>Yarin</td>
         </tr>
-
       </tbody>
     </table>
   </div>
@@ -419,6 +468,20 @@
 
   </div>
 </div>
+
+</div>
+<!-- END VERSION: Jun 23, 2026 -->
+
+<!-- ARCHIVE VERSIONS: paste new version blocks above this comment -->
+
+<script>
+function showVersion(id) {
+  document.querySelectorAll('.version-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.version-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
 
 </body>
 </html>
